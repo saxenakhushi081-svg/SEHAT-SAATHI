@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sehat Saathi | Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #007bff; --text-main: #2c3e50; }
+        body { font-family: 'Space Grotesk', sans-serif; background: #f4f7f9; margin: 0; overflow-x: hidden; }
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at top right, #e7f3ff, #f4f7f9);
+        }
+        .content { max-width: 700px; padding: 20px; }
+        h1 { font-size: 4rem; color: var(--text-main); margin-bottom: 10px; }
+        h1 span { color: var(--primary); }
+        p { font-size: 1.25rem; color: #6c757d; margin-bottom: 40px; }
+        .btn-start {
+            background: var(--primary); color: white; padding: 20px 45px;
+            border-radius: 50px; text-decoration: none; font-weight: bold;
+            font-size: 1.2rem; box-shadow: 0 10px 20px rgba(0,123,255,0.2);
+            transition: 0.3s;
+        }
+        .btn-start:hover { transform: translateY(-5px); background: #0056b3; }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="content">
+            <div style="font-weight: bold; color: var(--primary); margin-bottom: 20px;">✦ AI-POWERED HEALTHCARE</div>
+            <h1>Sehat <span>Saathi</span></h1>
+            <p>Smart clinical insights for a healthier tomorrow. Scan symptoms, analyze history, and find the right care instantly.</p>
+            <a href="/result" class="btn-start">Launch Symptom Analyzer →</a>
+        </div>
+    </section>
+</body>
+</html>

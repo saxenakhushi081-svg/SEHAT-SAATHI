@@ -1,0 +1,77 @@
+{
+  "emergency_keywords": [
+    "chest pain",
+    "difficulty breathing",
+    "shortness of breath",
+    "unconscious",
+    "severe bleeding",
+    "stroke",
+    "paralysis",
+    "suicidal",
+    "choking",
+    "seizure",
+    "fainting"
+  ],
+  "specialists": {
+    "headache": "Neurologist",
+    "migraine": "Neurologist",
+    "stomach pain": "Gastroenterologist",
+    "acidity": "Gastroenterologist",
+    "vomiting": "Gastroenterologist",
+    "chest pain": "Cardiologist",
+    "heart palpitations": "Cardiologist",
+    "toothache": "Dentist",
+    "gum bleeding": "Dentist",
+    "skin rash": "Dermatologist",
+    "acne": "Dermatologist",
+    "hair loss": "Dermatologist",
+    "eye pain": "Ophthalmologist",
+    "blurry vision": "Ophthalmologist",
+    "joint pain": "Orthopedic",
+    "back pain": "Orthopedic",
+    "bone fracture": "Orthopedic",
+    "anxiety": "Psychiatrist",
+    "depression": "Psychiatrist",
+    "panic attack": "Psychiatrist",
+    "fever": "General Physician",
+    "cold": "General Physician",
+    "fatigue": "General Physician",
+    "cough": "Pulmonologist",
+    "asthma": "Pulmonologist",
+    "wheezing": "Pulmonologist",
+    "period pain": "Gynecologist",
+    "pregnancy": "Gynecologist"
+  },
+  "severity_rules": {
+    "high": [
+      "chest pain",
+      "difficulty breathing",
+      "unconscious",
+      "severe bleeding",
+      "seizure",
+      "stroke",
+      "paralysis",
+      "choking"
+    ],
+    "medium": [
+      "high fever",
+      "vomiting",
+      "diarrhea",
+      "migraine",
+      "joint pain",
+      "blurry vision",
+      "back pain",
+      "panic attack"
+    ],
+    "low": [
+      "mild headache",
+      "cold",
+      "runny nose",
+      "acne",
+      "mild cough",
+      "fatigue",
+      "acidity",
+      "hair loss"
+    ]
+  }
+}

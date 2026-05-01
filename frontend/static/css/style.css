@@ -1,0 +1,43 @@
+:root {
+    --primary: #007bff; /* Medical Blue */
+    --accent: #1fd49a;  /* Health Green */
+    --bg-light: #f4f7f9;
+    --text-dark: #2c3e50;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.input-box {
+    background: white;
+    border: 2px solid #e1e8ed;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: 15px;
+    padding: 30px;
+}
+
+textarea, input {
+    background: #fdfdfd !important;
+    border: 1px solid #ced4da !important;
+    color: #333 !important;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 8px rgba(0,123,255,0.2);
+}
+
+.upload-area {
+    border: 2px dashed var(--primary);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background: #f0f7ff;
+}

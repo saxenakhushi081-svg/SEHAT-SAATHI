@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sehat Saathi | AI Symptom Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007bff;
+            --accent: #1fd49a;
+            --bg: #f4f7f9;
+            --text: #2c3e50;
+            --emergency: #dc3545;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Space Grotesk', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); }
+        .navbar { padding: 15px 40px; background: white; border-bottom: 1px solid #e1e8ed; display: flex; justify-content: space-between; }
+        .brand { font-size: 1.4rem; font-weight: 700; text-decoration: none; color: var(--text); }
+        .brand span { color: var(--primary); }
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        textarea { width: 100%; height: 120px; padding: 15px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 15px; font-size: 1rem; outline: none; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
+        .btn:hover { background: #0056b3; transform: translateY(-2px); }
+        .badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+        .high { background: #ffe5e5; color: var(--emergency); }
+        .std { background: #e5f9f2; color: var(--accent); }
+        .doctor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .doc-item { border: 1px solid #eee; padding: 15px; border-radius: 15px; background: #fafafa; }
+        .book-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 8px; border-radius: 8px; cursor: pointer; margin-top: 10px; font-weight: 700; }
+        .spinner { border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid white; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: none; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="brand">Sehat <span>Saathi</span></a>
+        <a href="/" style="text-decoration: none; color: #666;">Home</a>
+    </nav>
+
+    <div class="container">
+        <!-- INPUT VIEW -->
+        <div id="input-view" class="card">
+            <h2 style="margin-bottom: 15px;">How are you feeling?</h2>
+            <textarea id="symptom-input" placeholder="e.g. I have sharp chest pain and feel dizzy..."></textarea>
+            <input type="number" id="age-input" placeholder="Age" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px;">
+            <button class="btn" onclick="runAnalysis()">
+                <span id="btn-text">Analyze My Symptoms</span>
+                <div id="loader" class="spinner"></div>
+            </button>
+        </div>
+
+        <!-- RESULTS VIEW -->
+        <div id="result-view" class="card" style="display: none;">
+            <div id="sev-badge" class="badge">Assessment</div>
+            <h1 id="res-specialist" style="margin-bottom: 10px;">Specialist</h1>
+            <p id="res-reason" style="color: #555; margin-bottom: 25px;"></p>
+
+            <h3 style="margin-bottom: 10px;">Available Doctors</h3>
+            <div id="doc-grid" class="doctor-grid"></div>
+
+            <button class="btn" style="margin-top: 30px; background: #6c757d;" onclick="location.reload()">New Assessment</button>
+        </div>
+    </div>
+
+    <script>
+        async function runAnalysis() {
+            const symptoms = document.getElementById('symptom-input').value;
+            const age = document.getElementById('age-input').value;
+            if(!symptoms) return alert("Please enter your symptoms.");
+
+            document.getElementById('btn-text').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+
+            try {
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ symptoms, age: parseInt(age) })
+                });
+                const data = await response.json();
+
+                document.getElementById('input-view').style.display = 'none';
+                document.getElementById('result-view').style.display = 'block';
+
+                document.getElementById('res-specialist').innerText = data.specialist;
+                document.getElementById('res-reason').innerText = data.reasoning;
+                
+                const badge = document.getElementById('sev-badge');
+                badge.innerText = data.severity;
+                badge.className = data.severity.includes("High") ? "badge high" : "badge std";
+
+                const grid = document.getElementById('doc-grid');
+                grid.innerHTML = data.doctors_nearby.map(doc => `
+                    <div class="doc-item">
+                        <strong>${doc.name}</strong><br>
+                        <span style="font-size: 0.8rem; color: #777;">Fee: ${doc.fee} | Wait: ${doc.wait}</span>
+                        <button class="book-btn" onclick="book('${doc.name}')">Book Now</button>
+                    </div>
+                `).join('');
+
+            } catch (e) {
+                alert("Server error. Ensure your backend is running.");
+                location.reload();
+            }
+        }
+
+        function book(name) {
+            alert("Success! Your appointment with " + name + " is confirmed. Token sent via SMS.");
+        }
+    </script>
+</body>
+</html>
